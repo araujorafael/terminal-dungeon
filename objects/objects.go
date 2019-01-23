@@ -1,9 +1,10 @@
 package objects
 
 import (
-	"math/rand"
-	"time"
 	"fmt"
+	"math/rand"
+	"strings"
+	"time"
 )
 
 // GetObjectsList comment on exported function
@@ -33,4 +34,22 @@ func GetObjectsList() map[string]int {
 	}
 
 	return objectsMap
+}
+
+// GetMessage build the room message based on info passed by map
+func GetMessage(objects map[string]int) string {
+	if len(objects) == 0 {
+		return "The room is empty; As you look for something inside, the room stares at you with his emptyness"
+	}
+
+	var roomMessage = "You look inside the room and find: "
+	var itemsRoomItems []string
+
+	for object, num := range objects {
+		objectString := fmt.Sprintf("%d %s", num, object)
+		itemsRoomItems = append(itemsRoomItems, objectString)
+	}
+
+	details := strings.Join(itemsRoomItems, ", ")
+	return roomMessage + details + "; you dont know why, but appers the room is watching you"
 }

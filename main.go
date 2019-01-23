@@ -18,9 +18,12 @@ func main() {
 		seed := rand.NewSource(time.Now().UnixNano())
 		r := rand.New(seed)
 
+		objectsList := objects.GetObjectsList()
+
 		c.JSON(http.StatusOK, gin.H{
 			"doors":   r.Intn(5) + 1,
-			"objects": objects.GetObjectsList(),
+			"objects": objectsList,
+			"message": objects.GetMessage(objectsList),
 		})
 	})
 
